@@ -1,0 +1,23 @@
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: django
+    container_name: django
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app:z
+    env_file:
+      - .env
+    ports:
+      - '8000:8000'
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data
